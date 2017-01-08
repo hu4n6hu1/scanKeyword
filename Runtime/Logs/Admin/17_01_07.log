@@ -1,0 +1,18 @@
+[ 2017-01-07T00:09:40+08:00 ] 127.0.0.1 /index.php/admin/keyword/test2
+ERR: 非法操作:test2
+
+[ 2017-01-07T00:10:00+08:00 ] 127.0.0.1 /index.php/admin/keyword/test2
+ERR: 非法操作:test2
+
+[ 2017-01-07T00:10:02+08:00 ] 127.0.0.1 /index.php/admin/keyword/test2
+ERR: 非法操作:test2
+
+[ 2017-01-07T17:54:26+08:00 ] 127.0.0.1 /index.php/admin/keyword/start
+ERR: Think\Controller:add方法不存在！
+
+[ 2017-01-07T17:54:34+08:00 ] 127.0.0.1 /index.php/admin/keyword/start
+ERR: Think\Controller:add方法不存在！
+
+[ 2017-01-07T23:43:20+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: Think\Model:getKeywordLimit方法不存在！
+

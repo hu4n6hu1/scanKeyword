@@ -1,0 +1,33 @@
+[ 2017-01-05T00:04:31+08:00 ] 127.0.0.1 /index.php/Admin/Index/index.html
+ERR: 模板不存在:C:/wamp/test/Admin/View/Note/error.html
+
+[ 2017-01-05T00:05:15+08:00 ] 127.0.0.1 /index.php/Admin/Plugins/PluginsList.html
+ERR: 1146:Table 't3.baidu_scan_plugins' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_scan_plugins`
+
+[ 2017-01-05T00:05:21+08:00 ] 127.0.0.1 /index.php/Admin/Plugins/PluginsList.html
+ERR: 1146:Table 't3.baidu_scan_plugins' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_scan_plugins`
+
+[ 2017-01-05T00:05:24+08:00 ] 127.0.0.1 /index.php/Admin/Plugins/PluginsList.html
+ERR: 1146:Table 't3.baidu_scan_plugins' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_scan_plugins`
+
+[ 2017-01-05T00:45:11+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: 1146:Table 't3.baidu_fsockopen' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_fsockopen`
+
+[ 2017-01-05T00:45:31+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: 1146:Table 't3.baidu_fsockopen_model' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_fsockopen_model`
+
+[ 2017-01-05T20:17:30+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: 1146:Table 't3.baidu_keyword' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_keyword`
+
+[ 2017-01-05T20:25:02+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: Think\Model:getKeywordLimit方法不存在！
+
+[ 2017-01-05T20:25:04+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: Think\Model:getKeywordLimit方法不存在！
+

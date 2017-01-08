@@ -1,0 +1,4 @@
+[ 2017-01-04T23:21:43+08:00 ] 127.0.0.1 /index.php/Install/Index/step3
+ERR: 1146:Table 't3.baidu_admin' doesn't exist
+ [ SQL语句 ] : SHOW COLUMNS FROM `baidu_admin`
+

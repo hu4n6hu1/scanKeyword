@@ -1,0 +1,55 @@
+<include file="Public:header"/>
+<div class="col-sm-12 widget-container-span">
+	<div class="widget-box transparent">
+		<div class="widget-body">
+			<div class="widget-main padding-12 no-padding-left no-padding-right">
+				<div class="tab-content padding-4">
+					<div id="home1" class="tab-pane in active">
+						<div class="row">
+							<div class="col-xs-12 no-padding-right">
+								<div class="table-responsive">
+									<table id="sample-table-1"
+										class="table table-striped table-bordered table-hover">
+										<thead>
+											<tr>
+												
+												
+												<th>记录id</th>
+												<th>查询日期</th>
+												<th>关键字</th>
+												<th>对应的链接</th>
+												<th>排行榜</th>
+											</tr>
+										</thead>
+
+										<tbody>
+										<volist name="recordList" id="result">
+											<tr>
+												
+												<td>{$result.record_id}</td>
+												<td>{$result.date|date="y-m-d h:m:s",###}</td>
+												<td><a target='_blank' href="http://www.baidu.com/s?wd={$result.keyword}">{$result.keyword}</a></td>
+												<td>{$result.link}</td>
+												<td>{$result.rank}</td>
+												
+											</tr>
+										</volist>
+										</tbody>
+									</table>
+									<div class="form-actions">							
+										页数:{$currentPage}/{$countPage}	
+										<a href="__ACTION__/page/{$previousPage}">上一页</a>
+										<a href="__ACTION__/page/{$nextPage}">下一页</a>
+								</div>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+	</div>
+</div>

@@ -1,0 +1,120 @@
+<include file="Index/head" />
+      <div class="step">
+        <ul>
+          <li class="current"><em>1</em>检测环境</li>
+          <li><em>2</em>创建数据</li>
+          <li><em>3</em>完成安装</li>
+        </ul>
+      </div>
+      <div class="server">
+        <table width="100%">
+          <tr>
+            <td class="td1">环境检测</td>
+            <td class="td1" width="25%">推荐配置</td>
+            <td class="td1" width="25%">当前状态</td>
+            <td class="td1" width="25%">最低要求</td>
+          </tr>
+          <tr>
+            <td>PHP版本</td>
+            <td>>5.3</td>
+            <td>
+			  <if condition="$phpversion==true ">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>版本过低
+			   </if>
+			</td>
+            <td>必须大于等于5.3</td>
+          </tr>
+          <tr>
+            <td>pdo连接</td>
+            <td>开启</td>
+            <td>
+			   <if condition="$pdo==true ">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>不支持pdo
+			   </if>
+			</td>
+            <td>开启</td>
+          </tr>
+          <tr>
+            <td>附件上传</td>
+            <td>>2M</td>
+            <td>
+			 <if condition="$UploadInfo gt 2 ">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>上传文件大小太低
+			   </if>
+			</td>
+            <td>不限制</td>
+          </tr>
+
+          <tr>
+            <td>GD库</td>
+            <td>开启</td>
+            <td>
+			  <if condition="$isSupportGd==true">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>GD库未开启
+			   </if>
+			</td>
+            <td>开启</td>
+          </tr>
+		  
+		  <tr>
+            <td>CURL库</td>
+            <td>开启</td>
+            <td>
+			  <if condition="$isSupportCurl==true">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>curl模块未开启
+			   </if>
+			</td>
+            <td>开启</td>
+          </tr>
+		  
+		  <tr>
+            <td>文件系统函数</td>
+            <td>开启</td>
+            <td>
+			  <if condition="$isSupportFile_put_contents==true">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>file_put_contents未开启
+			   </if>
+			</td>
+            <td>开启</td>
+          </tr>
+        </table>
+        <table width="100%">
+          <tr>
+            <td class="td1">目录权限检查</td>
+            <td class="td1" width="25%">读权限（R=4）</td>
+            <td class="td1" width="25%">写权限(W=2)</td>
+          </tr>
+		  <tr>
+            <td class="td1">{$baseDir} ({$permission})</td>
+            <td class="td1" width="25%">
+			  <if condition="$isReadable==true">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>没有读权限
+			   </if>
+			</td>
+			
+			<td class="td1" width="25%">
+			  <if condition="$isWritable==true">
+			   <span class="correct_span">&radic;</span>
+			   <else /> 
+			    <span class="correct_span error_span">&radic;</span>没有写权限
+			   </if>
+			</td>
+
+      </table>
+    </div>
+    <div class="bottom tac"> <a href="__ACTION__" class="btn">重新检测</a><a href="__CONTROLLER__/step2" class="btn">下一步</a> </div>
+<include file="Index/footer"/>

@@ -1,0 +1,49 @@
+		<script type="text/javascript">
+		/* 用户管理 */
+		
+		$('.nav.nav-list li').eq(1).click(function() {
+			$('.nav.nav-list li').removeClass('active');
+			$(this).addClass('active');
+			$('#breadcrumbs ul li').eq(1).html('匹配记录查询');
+			$('#main_iframe').attr("src","{:U('Admin/Keyword/index')}");
+		});
+		/* 微信管理 */
+		$('.nav.nav-list li').eq(2).click(function() {
+			$('.nav.nav-list li').removeClass('active');
+			$(this).addClass('active');
+			$('#breadcrumbs ul li').eq(1).html('关键字');
+			$('#main_iframe').attr("src","{:U('Admin/Keyword/showKeyword')}");
+		});
+		
+		 /* 订单管理 */
+		$('.nav.nav-list li').eq(3).click(function() {
+			$('.nav.nav-list li').removeClass('active');
+			$(this).addClass('active');
+			$('#breadcrumbs ul li').eq(1).html('url');
+			$('#main_iframe').attr("src","{:U('Admin/Keyword/showLink')}");
+		});
+		/* 用户管理 */
+		$('.nav.nav-list li').eq(4).click(function() {
+			$('.nav.nav-list li').removeClass('active');
+			$(this).addClass('active');
+			$('#breadcrumbs ul li').eq(1).html('查询');
+			$('#main_iframe').attr("src","{:U('Admin/Keyword/showConsult')}");
+		});
+		/* 微信管理 */
+		$('.nav.nav-list li').eq(5).click(function() {
+			$('.nav.nav-list li').removeClass('active');
+			$(this).addClass('active');
+			$('#breadcrumbs ul li').eq(1).html('微信管理');
+			$('#main_iframe').attr("src","{:U('Admin/Weixin/index')}");
+		});
+		/* 扩展工具 */
+		$('.nav.nav-list li').eq(6).click(function() {
+			$('.nav.nav-list li').removeClass('active');
+			$(this).addClass('active');
+			$('#breadcrumbs ul li').eq(1).html('技术支持');
+			$('#main_iframe').attr("src","{:U('Admin/Util/index')}");
+		}); 
+	
+		</script>
+		</body>
+</html>
