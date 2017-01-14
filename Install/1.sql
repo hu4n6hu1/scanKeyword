@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `baidu_admin` (
   `email` varchar(25) COLLATE utf8_bin NOT NULL,
   `password` char(32) COLLATE utf8_bin NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=3 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
 -- 转存表中的数据 `baidu_admin`
@@ -4040,10 +4040,7 @@ INSERT INTO `baidu_link` (`id`, `bt`, `pt`, `link`) VALUES
 (275028, '大鼓出租价格', '慧聪网', 'http://b2b.hc360.com/supplyself/618632188.html'),
 (275029, '大鼓出租厂家', '慧聪网', 'http://b2b.hc360.com/supplyself/618631972.html'),
 (275030, '大鼓租赁价格', '慧聪网', 'http://b2b.hc360.com/supplyself/618631773.html'),
-(275031, '大鼓租赁厂家', '慧聪网', 'http://b2b.hc360.com/supplyself/618631538.html'),
-(275037, 'bt', 'pt', 'url'),
-(275038, 'test1', 'test2', 'http://www.zhihu.com'),
-(275039, 'test1', 'test3', 'http://www.zhihu.com/question/20607351');
+(275031, '大鼓租赁厂家', '慧聪网', 'http://b2b.hc360.com/supplyself/618631538.html');
 
 -- --------------------------------------------------------
 
@@ -4052,13 +4049,12 @@ INSERT INTO `baidu_link` (`id`, `bt`, `pt`, `link`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `baidu_match` (
-  `record_id` int(11) NOT NULL AUTO_INCREMENT,
   `keyword_id` int(11) DEFAULT NULL,
   `link_id` int(11) DEFAULT NULL,
   `date` int(11) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
   PRIMARY KEY (`record_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=315 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --
 -- 转存表中的数据 `baidu_match`
