@@ -4053,7 +4053,7 @@ CREATE TABLE IF NOT EXISTS `baidu_match` (
   `link_id` int(11) DEFAULT NULL,
   `date` int(11) DEFAULT NULL,
   `rank` int(11) DEFAULT NULL,
-  PRIMARY KEY (`record_id`)
+  unique `union_key`(`link_id`,`keyword_id`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_bin AUTO_INCREMENT=1 ;
 
 --

@@ -1,4 +1,11 @@
 <include file="Public:header"/>
+<script>
+function ready(){
+$('div.table-responsive a').hide();
+}
+$(document).ready(ready)
+
+</script>
 <div class="col-sm-12 widget-container-span">
 	<div class="widget-box transparent">
 		<div class="widget-body">
@@ -9,8 +16,11 @@
 							<div class="col-xs-12 no-padding-right">
 								<div class="table-responsive">
 								
-							    <a target="_blank" href="__CONTROLLER__/quickScan">全表快速扫描（不推荐）</a>
-							    <a target="_blank" href="__CONTROLLER__/pageScan">分页扫描（推荐）</a>
+							    <a target="_blank" href="__MODULE__/SingleScan/start">单线程扫描（高精确度，不过费时间，适合后台crontab）</a>
+								<br>
+							    <a target="_blank" href="__MODULE__/MultiScan/start">多线程快速扫描(速度快,不过网络不稳定下，数据会出现丢失，nginx下配置不好，会出现504)</a>
+							    <br>
+								<button id="ajaxScan">ajax多线程快速扫描(前端分页扫描，解决服务器端时间太长问题，缺点就是浏览器不能关闭)</button>
 
 							</div>
 						</div>

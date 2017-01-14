@@ -1,5 +1,6 @@
 <?php
 namespace  Admin\Model;
+
 class BaiDuSearchModel{
 	private function __construct(){}
 	public static $instance='';
@@ -33,6 +34,9 @@ class BaiDuSearchModel{
 		$result=array();
 		$host=array();
 		preg_match_all($pattern,$contents,$result);
+		if(empty($result[2][0])){
+			return false;
+		}
 		$origin=parse_url('http://'.$result[2][0]);
 		$host['origin']='http://'.$origin['host'];
 		$host['encryp']=$result[1][0];

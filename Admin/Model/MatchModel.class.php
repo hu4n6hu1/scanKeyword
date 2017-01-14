@@ -3,8 +3,8 @@ namespace Admin\Model;
 use Think\Model;
 class MatchModel extends Model{
 	 protected $lastError;
-	  public function getMatchRecordByLinkId($linkId){
-		  $result=$this->where('link_id=%d',$linkId)->find();
+	  public function getMatchRecordByLinkIdAndKeywordId($linkId,$keywordId){
+		  $result=$this->where('link_id=%d and keyword_id=%d',$linkId,$keywordId)->find();
 		  if($result===false){
 			  $this->lasstError='数据库错误.';
 		  }
@@ -23,7 +23,7 @@ class MatchModel extends Model{
 	  }
 	  
 	  protected function updateMatchRecord($data){
-		  $affectRow=$this->field('keyword_id,date,rank')->where('link_id=%d',$data['link_id'])->data($data)->save();
+		  $affectRow=$this->field('date,rank')->where('link_id=%d and keyword_id=%d',$data['link_id'],$data['keyword_id'])->data($data)->save();
 		  if($affectRow===false){
 			  $this->lasstError='数据库错误.';
 			  return false;  
@@ -32,8 +32,8 @@ class MatchModel extends Model{
 	  }
 	  
 	  public function addRecord($data){
-		  //关闭这个接口
-/* 		  $result=$this->getMatchRecordByLinkId($data['link_id']);
+		  
+		  $result=$this->getMatchRecordByLinkIdAndKeywordId($data['link_id'],$data['keyword_id']);
 		  if($result===null){
 			  return $this->addMatchRecord($data);
 	
@@ -44,13 +44,13 @@ class MatchModel extends Model{
 		  if($result===false){
 			  $this->lasstError='数据库错误.';
 			  return false;  
-		  } */
+		  } 
 		  
 		  
 	  }
 	  
 	  public function getRecordList($page=1,$limit=10){
-		  $result=$this->field('record_id,keyword,date,rank,link')->join('__KEYWORD__ on __MATCH__.keyword_id =__KEYWORD__.id')->page($page,$limit)
+		  $result=$this->field('keyword,date,rank,link')->join('__KEYWORD__ on __MATCH__.keyword_id =__KEYWORD__.id')->page($page,$limit)
 		 ->join('__LINK__ on __MATCH__.link_id= __LINK__.id')->select();
 		  if($result===false){
 			  $this->lasstError='数据库错误.';

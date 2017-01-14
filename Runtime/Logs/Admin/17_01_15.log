@@ -1,0 +1,9 @@
+[ 2017-01-15T00:09:12+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/pageScan
+ERR: 非法操作:pageScan
+
+[ 2017-01-15T00:22:48+08:00 ] 127.0.0.1 /index.php/Admin/ajax/start
+ERR: 无法加载控制器:Ajax
+
+[ 2017-01-15T00:22:57+08:00 ] 127.0.0.1 /index.php/Admin/ajaxscan/start
+ERR: 无法加载控制器:Ajaxscan
+
