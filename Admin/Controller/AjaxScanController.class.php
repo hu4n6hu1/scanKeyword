@@ -154,17 +154,14 @@ $cm->start();
 		foreach($keywordList as $keyword){
 			$list[]='http://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
 		}
-		var_dump($list);
+		
 		$this->getHtmlContent($list);
 		
 		
 		
 
 	}
-	
-	public function test($page=1, $limit=10){
-		echo "page=$page";
-	}
+
 	
 	
 	
