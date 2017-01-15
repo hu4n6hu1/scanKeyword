@@ -1,0 +1,17 @@
+[ 2017-01-14T17:44:33+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: 1054:Unknown column 'record_id' in 'field list'
+ [ SQL语句 ] : SELECT `record_id`,`keyword`,`date`,`rank`,`link` FROM `baidu_match` INNER JOIN baidu_keyword on baidu_match.keyword_id =baidu_keyword.id INNER JOIN baidu_link on baidu_match.link_id= baidu_link.id  LIMIT 0,10  
+
+[ 2017-01-14T17:44:36+08:00 ] 127.0.0.1 /index.php/Admin/Keyword/index.html
+ERR: 1054:Unknown column 'record_id' in 'field list'
+ [ SQL语句 ] : SELECT `record_id`,`keyword`,`date`,`rank`,`link` FROM `baidu_match` INNER JOIN baidu_keyword on baidu_match.keyword_id =baidu_keyword.id INNER JOIN baidu_link on baidu_match.link_id= baidu_link.id  LIMIT 0,10  
+
+[ 2017-01-14T20:18:26+08:00 ] 127.0.0.1 /index.php/Admin/SingleScan
+ERR: 非法操作:index
+
+[ 2017-01-14T22:40:26+08:00 ] 127.0.0.1 /index.php/Admin/SingleScan
+ERR: 非法操作:index
+
+[ 2017-01-14T22:40:55+08:00 ] 127.0.0.1 /index.php/Admin/SingleScan
+ERR: 非法操作:index
+

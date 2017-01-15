@@ -77,6 +77,41 @@
 		<script src="<?php echo (PUBLIC_PATH); ?>/Plugin/style/js/ace.min.js"></script>
 	</head>
 	<body>
+<script src='<?php echo (PUBLIC_PATH); ?>/Plugin/process/js/radialIndicator.js'></script>
+<script>
+function ready(){
+
+
+
+    function start(){
+      function sendData(page=1,limit=10){
+			if(page>countPage){
+			  return false;
+			}
+			var  url="/index.php/Admin/AjaxScan/start/page/"+page+'/limit/'+limit;
+			$.get(url,function(data,status){
+			
+			alert("Data: " + data + "\nStatus: " + status);
+			page++;
+			radialObj.value(page);
+			sendData(page);
+			});
+	  }
+      var countPage=<?php echo ($countPage); ?>;
+      $('div.table-responsive ').hide();
+      var radialObj = $('#indicatorContainer').radialIndicator({
+           minValue: 1,
+           maxValue: countPage
+      }).data('radialIndicator');
+	sendData();
+    }
+	
+ $('#ajaxScan').click(start);
+}
+
+$(document).ready(ready)
+
+</script>
 <div class="col-sm-12 widget-container-span">
 	<div class="widget-box transparent">
 		<div class="widget-body">
@@ -86,9 +121,12 @@
 						<div class="row">
 							<div class="col-xs-12 no-padding-right">
 								<div class="table-responsive">
-								
-							    <a target="_blank" href="/index.php/Admin/Keyword/quickScan">全表快速扫描（不推荐）</a>
-							    <a target="_blank" href="/index.php/Admin/Keyword/pageScan">分页扫描（推荐）</a>
+								<button id="ajaxScan">ajax多线程快速扫描(前端分页扫描，解决服务器端时间太长问题，缺点就是浏览器不能关闭)</button>
+								<br>
+							   <a target="_blank" href="/index.php/Admin/SingleScan/start">单线程扫描（高精确度，不过费时间，适合后台crontab）</a>
+								<br>
+							    <a target="_blank" href="/index.php/Admin/MultiScan/start">多线程快速扫描(速度快,不过网络不稳定下，数据会出现丢失，nginx下配置不好，会出现504)</a>
+							    
 
 							</div>
 						</div>
@@ -97,7 +135,7 @@
 				</div>
 			</div>
 		</div>
-		
+		<div class="prg-cont-wrap"><div class="prg-cont rad-prg" id="indicatorContainer"><canvas width="110" height="110"></canvas></div></div>
 
 	</div>
 </div>

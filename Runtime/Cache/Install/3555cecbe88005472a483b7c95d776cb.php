@@ -2,13 +2,13 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>冷爱微信公众号管理系统</title>
+        <title>冷爱制作</title>
         <link rel="stylesheet" href="<?php echo (PUBLIC_PATH); ?>/Install/css/install.css" />
     </head>
     <body>
         <div class="wrap">
             <div class="header">
-			<h1 class="logo">冷爱微信公众号管理系统</h1>
+			<h1 class="logo">冷爱制作</h1>
 			<div class="icon_install">安装向导</div>
 			<div class="version">QQ:371522155 </div>  </div>
             <section class="section">
