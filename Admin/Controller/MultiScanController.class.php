@@ -2,6 +2,7 @@
     namespace Admin\Controller;
 	
 	use Think\Controller;
+	use QL\QueryList;
 	
 	class MultiScanController extends Controller
 	{

@@ -28,7 +28,7 @@
                    
                 ),
         //设置线程数
-        'maxThread' => 100,
+        'maxThread' => 30,
         //设置最大尝试数
         'maxTry' => 3 
     ],
@@ -97,7 +97,7 @@ $cm->start();
                     CURLOPT_FOLLOWLOCATION => false,
                     CURLOPT_AUTOREFERER => true,
                 ),
-        'maxThread' => 100,
+        'maxThread' => 30,
         'maxTry' => 5 
     ],
     'start' => false,
@@ -140,20 +140,16 @@ $cm->start();
 	/**
 	 *
 	*/
-	public function start($page=1, $limit=30){
+	public function start($page=1, $limit=10){
 		// $this->isAuthorize();
 		
-		ignore_user_abort(true);
 		set_time_limit(0);
 		$keywordObj=D('Keyword');
 		if($status===false){
 			echo "程序错误";
 			exit();
 		}
-
-		
-       
-		$keywordList=$keywordObj->getKeywordLimit($i,$limit);
+		$keywordList=$keywordObj->getKeywordLimit($page,$limit);
 		$list=array();
 		foreach($keywordList as $keyword){
 			$list[]='http://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
@@ -164,6 +160,10 @@ $cm->start();
 		
 		
 
+	}
+	
+	public function test($page=1, $limit=10){
+		echo "page=$page";
 	}
 	
 	

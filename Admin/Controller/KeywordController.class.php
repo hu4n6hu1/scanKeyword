@@ -38,10 +38,9 @@ class KeywordController extends Controller {
 		$this->display('matchList');
 	}
 	
-	public function showKeyword($page=1){
+	public function showKeyword($page=1, $limit=10){
 		 $this->isAuthorize();
 		$keywordObj=D('Keyword');
-		$limit=10;
 		$recordList=$keywordObj->getKeywordLimit($page,$limit);
 		$count=$keywordObj->getRecordAmount($page,$limit);
 		$pageObj= new \Admin\Model\PageModel($count,$page);
@@ -56,8 +55,14 @@ class KeywordController extends Controller {
 		$this->display('keywordList');
 	}
 	
-	public function showConsult(){
-		 $this->isAuthorize();
+	public function showConsult($page=1, $limit=10){
+		$this->isAuthorize();
+		$keywordObj=D('Keyword');
+		$recordList=$keywordObj->getKeywordLimit($page,$limit);
+		$count=$keywordObj->getRecordAmount($page,$limit);
+		$pageObj= new \Admin\Model\PageModel($count,$page);
+		$countPage=$pageObj->getCountPage($limit);
+		$this->assign('countPage',$countPage);
 		$this->display('consult');
 	}
 	
