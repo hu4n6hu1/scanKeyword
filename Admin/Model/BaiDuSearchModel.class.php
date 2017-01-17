@@ -21,8 +21,15 @@ class BaiDuSearchModel{
 	}
 	
 	public static function matchRedirectUrl($contents){
-	//<script>window.location.replace("http://down.admin5.com/")</script>
-		$pattern='/replace\("(.*)"\)/';
+		
+        $webType= PHP_OS;
+		$pos=strpos($webType,'WINNT');
+		if($pos===false){
+			$pattern="/location:(.*)/i";
+		}else{
+			$pattern='/replace\("(.*)"\)/'; //apache下开启这个
+		}
+		
 		$result=array();
 		preg_match($pattern,$contents,$result);
 		return $result[1];
