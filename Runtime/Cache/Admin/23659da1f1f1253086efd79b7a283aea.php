@@ -125,7 +125,8 @@ $(document).ready(ready)
 							   <a target="_blank" href="/index.php/Admin/SingleScan/start">单线程扫描（高精确度，不过费时间，适合后台crontab）</a>
 								<br>
 							    <a target="_blank" href="/index.php/Admin/MultiScan/start">多线程快速扫描(速度快,不过网络不稳定下，数据会出现丢失，nginx下配置不好，会出现504)</a>
-							    <a target="_blank" href="/index.php/Admin/MultiScan/start">清除所有数据，重新开始采集</a>
+								<br>
+							   <a target="_blank" href="/index.php/Admin/Keyword/clearMatch">清除所有数据，重新开始采集</a>
 							  
 
 							</div>

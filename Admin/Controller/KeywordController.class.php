@@ -84,6 +84,16 @@ class KeywordController extends Controller {
 		$this->display('urlList');
 	}
 	
+	public function clearMatch(){
+		$this->isAuthorize();
+		$matchObj=D('Match');
+		$status=$matchObj->cleatAll();
+		if($status===false){
+			echo "清除失败";
+		}
+		echo "清除匹配数据成功";
+	}
+	
 	
 
 	
