@@ -140,7 +140,7 @@ $cm->start();
 	/**
 	 *
 	*/
-	public function start($page=1, $limit=10){
+	public function start(){
 		// $this->isAuthorize();
 		
 		set_time_limit(0);
@@ -149,11 +149,12 @@ $cm->start();
 			echo "³ÌÐò´íÎó";
 			exit();
 		}
-		$keywordList=$keywordObj->getKeywordLimit($page,$limit);
+		$keywordList=$keywordObj->getKeywordLimit();
 		$list=array();
 		foreach($keywordList as $keyword){
 			$list[]='http://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
 		}
+		
 		
 		$this->getHtmlContent($list);
 		

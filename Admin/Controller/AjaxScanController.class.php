@@ -6,6 +6,8 @@
 	
 	class AjaxScanController extends Controller
 	{
+///www/wdlinux/php/bin/php /www/web/olachina_xyz/public_html/index.php  /Admin/AjaxScan/start/page/1/limit/300
+
 		protected function isAuthorize(){
                $loginStatus=session('loginStatus');
                if(!$loginStatus){
@@ -119,7 +121,7 @@
 	
 	protected  function saveMatchData($htmlContent,$keywordId,$rank){
 		$link=\Admin\Model\BaiDuSearchModel::matchRedirectUrl($htmlContent);
-		var_dump($link);
+		//var_dump($link);
 		$linkObj= D('Link');
 		$link=strtolower(trim($link));
 		$result=$linkObj->getLinkByLink($link);
@@ -130,7 +132,7 @@
 			$data['rank']=$rank;	
 			$matchObj=D('Match');
 			$matchObj->addRecord($data);
-			echo "catch data<br>";
+		//	echo "catch data<br>";
 			
 		}
 	}
