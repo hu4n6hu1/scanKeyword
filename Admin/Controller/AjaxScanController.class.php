@@ -27,7 +27,7 @@
 	
 
 
-	public function start($page=1, $limit=10){
+	public function start($page=1, $limit=0){
 		// $this->isAuthorize();
 		
 		set_time_limit(0);
@@ -38,8 +38,13 @@
 		}
 		$keywordList=$keywordObj->getKeywordLimit($page,$limit);
 		$list=array();
+		$schemeList =array('http','https');
+		$i=0;
 		foreach($keywordList as $keyword){
-			$list[]='http://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
+			$point=$i%2;
+			$i++;
+			$scheme=$schemeList[$point];
+			$list[]=$scheme.'://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
 		}
 		
 		$this->step2($list);
@@ -71,8 +76,44 @@
     ],
 	    //不自动开始线程，默认自动开始
     'start' => false,
-    'success' => function($a){
-        //采集规则
+    'success' => [$this,"success"]
+   ]);
+   $cm->start();
+ }
+	
+	
+	/**
+	 *获取html内容，获取解密后的url，地址。然后对比链接数据库。如果是我们要捕获的url，就记录到match表里
+	 *@param 重定向的html内容
+	 *@param 关键字数据库里面关键字对应的id
+	 *@param 链接排名
+	 */
+	
+	protected  function saveMatchData($htmlContent,$keywordId,$rank){
+		$link=\Admin\Model\BaiDuSearchModel::matchRedirectUrl($htmlContent);
+		//var_dump($link);
+		$linkObj= D('Link');
+		$link=strtolower(trim($link));
+		$result=$linkObj->getLinkByLink($link);
+		if($result){
+			$data['date']=time();
+			$data['keyword_id']=$keywordId;
+			$data['link_id']=$result['id'];
+			$data['rank']=$rank;	
+			$matchObj=D('Match');
+			$matchObj->addRecord($data);
+		//	echo "catch data<br>";
+			
+		}
+	}
+	
+	/**
+	 *成功执行时候执行这个回调函数，这里不明白为什么必须设置为publi 属性，其他的属性，会报错，提示函数未定义
+	 *$a array 这个参数内容为采集到的数据
+	*/
+	
+	public function success($a){
+		   //采集规则
 		$rules=array(
 		'host'=>array('div.f13','html')
 		);
@@ -106,36 +147,9 @@
 				
 			} 
 		}
-     }
-   ]);
-   $cm->start();
- }
-	
-	
-	/**
-	 *获取html内容，获取解密后的url，地址。然后对比链接数据库。如果是我们要捕获的url，就记录到match表里
-	 *@param 重定向的html内容
-	 *@param 关键字数据库里面关键字对应的id
-	 *@param 链接排名
-	 */
-	
-	protected  function saveMatchData($htmlContent,$keywordId,$rank){
-		$link=\Admin\Model\BaiDuSearchModel::matchRedirectUrl($htmlContent);
-		//var_dump($link);
-		$linkObj= D('Link');
-		$link=strtolower(trim($link));
-		$result=$linkObj->getLinkByLink($link);
-		if($result){
-			$data['date']=time();
-			$data['keyword_id']=$keywordId;
-			$data['link_id']=$result['id'];
-			$data['rank']=$rank;	
-			$matchObj=D('Match');
-			$matchObj->addRecord($data);
-		//	echo "catch data<br>";
-			
-		}
 	}
+	
+
 	
 	
 	

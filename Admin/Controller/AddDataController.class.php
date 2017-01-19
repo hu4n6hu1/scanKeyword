@@ -14,8 +14,7 @@
 		}
 		
 		public function test(){
-			$a=time();
-			echo date('y-m-d H:I:S',$a);
+
 			
 		}
 	}

@@ -104,7 +104,7 @@
 										<?php if(is_array($recordList)): $i = 0; $__LIST__ = $recordList;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$result): $mod = ($i % 2 );++$i;?><tr>
 												
 												
-												<td><?php echo (date("y-m-d h:m:s",$result["date"])); ?></td>
+												<td><?php echo (date("Y-m-d H:i:s",$result["date"])); ?></td>
 												<td><a target='_blank' href="http://www.baidu.com/s?wd=<?php echo ($result["keyword"]); ?>"><?php echo ($result["keyword"]); ?></a></td>
 												<td><?php echo ($result["link"]); ?></td>
 												<td><?php echo ($result["rank"]); ?></td>

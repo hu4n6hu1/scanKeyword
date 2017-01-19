@@ -14,8 +14,8 @@ class KeywordController extends Controller {
                $this->userId=session('id');
                $this->userName=session('email');
                $this->assign('userName',$this->userName);
-               $this->assign('userId',$this->userId);			
-			var_dump(time());
+               $this->assign('userId',$this->userId);	
+			
 		}
 	
 	public  function index($page=1,$limit=100){	
