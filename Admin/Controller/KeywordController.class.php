@@ -14,16 +14,15 @@ class KeywordController extends Controller {
                $this->userId=session('id');
                $this->userName=session('email');
                $this->assign('userName',$this->userName);
-               $this->assign('userId',$this->userId);			
+               $this->assign('userId',$this->userId);	
 			
 		}
 	
-	public  function index($page=1){	
+	public  function index($page=1,$limit=100){	
 	    $this->isAuthorize();
 		$keywordObj=D('Keyword');
 		$linkObj=D('Link');
 		$matchObj=D('Match');
-		$limit=10;
 		$recordList=$matchObj->getRecordList($page,$limit);
 		$count=$matchObj->getRecordAmount();
 		$pageObj= new \Admin\Model\PageModel($count,$page);
@@ -38,7 +37,7 @@ class KeywordController extends Controller {
 		$this->display('matchList');
 	}
 	
-	public function showKeyword($page=1, $limit=10){
+	public function showKeyword($page=1, $limit=100){
 		 $this->isAuthorize();
 		$keywordObj=D('Keyword');
 		$recordList=$keywordObj->getKeywordLimit($page,$limit);
@@ -55,7 +54,7 @@ class KeywordController extends Controller {
 		$this->display('keywordList');
 	}
 	
-	public function showConsult($page=1, $limit=10){
+	public function showConsult($page=1, $limit=100){
 		$this->isAuthorize();
 		$keywordObj=D('Keyword');
 		$recordList=$keywordObj->getKeywordLimit($page,$limit);
@@ -66,10 +65,10 @@ class KeywordController extends Controller {
 		$this->display('consult');
 	}
 	
-	public function showLink($page=1){
+	public function showLink($page=1, $limit=100){
 		 $this->isAuthorize();
 		$linkObj=D('Link');
-		$limit=10;
+		
 		$recordList=$linkObj->getLinkList($page,$limit);
 		$count=$linkObj->getRecordAmount($page,$limit);
 		$pageObj= new \Admin\Model\PageModel($count,$page);

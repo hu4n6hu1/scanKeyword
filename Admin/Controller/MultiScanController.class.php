@@ -6,7 +6,6 @@
 	
 	class MultiScanController extends Controller
 	{
-	
 
 	/**
 	 *多线程获取指定url的html内容，然后匹配到数据库内的连接，并且存储数据到数据库
