@@ -7,7 +7,7 @@
 	class AjaxScanController extends Controller
 	{
 ///www/wdlinux/php/bin/php /www/web/olachina_xyz/public_html/index.php  /Admin/AjaxScan/start/page/1/limit/300
-
+        public static $lostList=array();
 		protected function isAuthorize(){
                $loginStatus=session('loginStatus');
                if(!$loginStatus){
@@ -27,27 +27,25 @@
 	
 
 
-	public function start($page=1, $limit=0){
-		// $this->isAuthorize();
-		
+	public function start($limit=30){
 		set_time_limit(0);
 		$keywordObj=D('Keyword');
 		if($status===false){
 			echo "程序错误";
 			exit();
 		}
-		$keywordList=$keywordObj->getKeywordLimit($page,$limit);
+		$count=$keywordObj->getRecordAmount();
+		$page=$count%$limit?intval(($count/$limit))+1:intval($count/$limit);
+        for($i=1;$i<=$page;$i++){
+		$keywordList=$keywordObj->getKeywordLimit($i,$limit);
 		$list=array();
-		$schemeList =array('http','https');
-		$i=0;
 		foreach($keywordList as $keyword){
-			$point=$i%2;
-			$i++;
-			$scheme=$schemeList[$point];
-			$list[]=$scheme.'://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
+			$list[]='https://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
 		}
-		
 		$this->step2($list);
+		echo "第 $i 页扫描完成<br>";
+		}
+		var_dump(\Admin\Controller\AjaxScanController::$lostList);
 		
 		
 		
@@ -72,11 +70,12 @@
         //设置线程数
         'maxThread' => 10,
         //设置最大尝试数
-        'maxTry' => 3
+        'maxTry' => 100
     ],
 	    //不自动开始线程，默认自动开始
     'start' => false,
-    'success' => [$this,"success"]
+    'success' => [__NAMESPACE__.'\AjaxScanController',"success_my"],
+	'error'=>[__NAMESPACE__.'\AjaxScanController','error_my']
    ]);
    $cm->start();
  }
@@ -89,7 +88,7 @@
 	 *@param 链接排名
 	 */
 	
-	protected  function saveMatchData($htmlContent,$keywordId,$rank){
+	protected static  function saveMatchData($htmlContent,$keywordId,$rank){
 		$link=\Admin\Model\BaiDuSearchModel::matchRedirectUrl($htmlContent);
 		//var_dump($link);
 		$linkObj= D('Link');
@@ -112,7 +111,7 @@
 	 *$a array 这个参数内容为采集到的数据
 	*/
 	
-	public function success($a){
+	public static function success_my($a,$curlInfo){
 		   //采集规则
 		$rules=array(
 		'host'=>array('div.f13','html')
@@ -143,10 +142,15 @@
 			if(!empty($linkList)){
 				
 				$htmlContent=\Admin\Model\StreamToolModel::sendDataByGet($host['encryp']);
-			  $this->saveMatchData($htmlContent, $keywordId, $rank);
+			  self::saveMatchData($htmlContent, $keywordId, $rank);
 				
 			} 
 		}
+	}
+	
+	public static function error_my($contentInfo, $curlInfo){
+
+		array_push(\Admin\Controller\AjaxScanController::$lostList,$contentInfo['info']['url']);
 	}
 	
 
