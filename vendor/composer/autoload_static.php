@@ -13,6 +13,14 @@ class ComposerStaticInit1749294c202fd1beaefb5d3295a97bfc
             'QL\\Ext\\' => 7,
             'QL\\' => 3,
         ),
+        'P' => 
+        array (
+            'Psr\\Log\\' => 8,
+        ),
+        'M' => 
+        array (
+            'Monolog\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -28,6 +36,14 @@ class ComposerStaticInit1749294c202fd1beaefb5d3295a97bfc
         'QL\\' => 
         array (
             0 => __DIR__ . '/..' . '/jaeger/querylist',
+        ),
+        'Psr\\Log\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+        ),
+        'Monolog\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
         ),
     );
 
