@@ -3,65 +3,65 @@
 	
 	use Think\Controller;
 	use QL\QueryList;
+
 	
 	class MultiScanController extends Controller
 	{
 
 	/**
-	 *¶àÏß³Ì»ñÈ¡Ö¸¶¨urlµÄhtmlÄÚÈİ£¬È»ºóÆ¥Åäµ½Êı¾İ¿âÄÚµÄÁ¬½Ó£¬²¢ÇÒ´æ´¢Êı¾İµ½Êı¾İ¿â
-	 *@param $list urlÁĞ±í
+	 *å¤šçº¿ç¨‹è·å–æŒ‡å®šurlçš„htmlå†…å®¹ï¼Œç„¶ååŒ¹é…åˆ°æ•°æ®åº“å†…çš„è¿æ¥ï¼Œå¹¶ä¸”å­˜å‚¨æ•°æ®åˆ°æ•°æ®åº“
+	 *@param $list urlåˆ—è¡¨
 	 */
 	
     protected function getHtmlContent($list){
 		
 		$cm=QueryList::run('Multi',[
-    //´ı²É¼¯Á´½Ó¼¯ºÏ
+    //å¾…é‡‡é›†é“¾æ¥é›†åˆ
     'list' => $list,
     'curl' => [
         'opt' => array(
-                    //ÕâÀï¸ù¾İ×ÔÉíĞèÇóÉèÖÃcurl²ÎÊı
+                    //è¿™é‡Œæ ¹æ®è‡ªèº«éœ€æ±‚è®¾ç½®curlå‚æ•°
                     CURLOPT_SSL_VERIFYPEER => false,
                     CURLOPT_SSL_VERIFYHOST => false,
                     CURLOPT_FOLLOWLOCATION => false,
                     CURLOPT_AUTOREFERER => true,
                    
                 ),
-        //ÉèÖÃÏß³ÌÊı
+        //è®¾ç½®çº¿ç¨‹æ•°
         'maxThread' => 100,
-        //ÉèÖÃ×î´ó³¢ÊÔÊı
-        'maxTry' => 3 
+        //è®¾ç½®æœ€å¤§å°è¯•æ•°
+        'maxTry' => 1
     ],
-	    //²»×Ô¶¯¿ªÊ¼Ïß³Ì£¬Ä¬ÈÏ×Ô¶¯¿ªÊ¼
     'start' => false,
     'success' => function($a){
-        //²É¼¯¹æÔò
+        //é‡‡é›†è§„åˆ™
 		$rules=array(
-		'host'=>array('div.f13','html')
+		'host'=>array('div.f13>a.c-showurl','text',null,function ($item){
+			 $pos=strpos($item,'/');
+			 return 'http://'.substr($item,0,$pos);
+		} ),
+		'encryp'=>array('div.f13>a.c-showurl','href')
 		);
-        
-		//Æ¥Åäµ½°Ù¶ÈµÄdiv class=f13 µÄ½Úµã£¬È»ºó±éÀú·µ»ØÒ»¸öÒ³ÃæµÄurlÁ´½Ó¡£
+       
+		//åŒ¹é…åˆ°ç™¾åº¦çš„div class=f13 çš„èŠ‚ç‚¹ä¸‹çš„å­èŠ‚ç‚¹a å…ƒç´ çš„ hrefå’Œå†…å®¹ï¼Œç„¶åéå†è¿”å›ä¸€ä¸ªé¡µé¢çš„urlé“¾æ¥ã€‚
         $ql = QueryList::Query($a['content'],$rules);
-        $divList = $ql->getData();
-		$hostList=array();
-		foreach($divList as $f13){
-			$tmp=\Admin\Model\BaiDuSearchModel::matchMyHost($f13['host']);
-			if($tmp!==false){
-			$hostList[]=$tmp;
-			}
-		}
+        $hostList = $ql->getData();
+/* 		echo "<pre>";
+		print_r($hostList);
+		echo "</pre>" */;
 		
-		//$count±äÁ¿±£´æÒ»¸öÒ³ÃæµÄÁ¬½Ó×ÜÊı¡£Ñ­»·²éÑ¯Êı¾İ¿â£¬¿´¿´ÀïÃæÓĞÃ»ÓĞÆ¥ÅäÕâ¸öurlÓòÃûµÄµØÖ·¡£
-		//Èç¹ûÊı¾İ¿âÓĞ¸ÃÓòÃûÊı¾İ¡£¾Í°Ñ°Ù¶ÈËÑË÷µÃµ½¼ÓÃÜµÄurl¡£½øĞĞ½âÃÜ£¬¿´¿´Æ¥ÅäÊı¾İ¿âÀïÃæÄÄ¸öurl¡£
+		//$countå˜é‡ä¿å­˜ä¸€ä¸ªé¡µé¢çš„è¿æ¥æ€»æ•°ã€‚å¾ªç¯æŸ¥è¯¢æ•°æ®åº“ï¼Œçœ‹çœ‹é‡Œé¢æœ‰æ²¡æœ‰åŒ¹é…è¿™ä¸ªurlåŸŸåçš„åœ°å€ã€‚
+		//å¦‚æœæ•°æ®åº“æœ‰è¯¥åŸŸåæ•°æ®ã€‚å°±æŠŠç™¾åº¦æœç´¢å¾—åˆ°åŠ å¯†çš„urlã€‚è¿›è¡Œè§£å¯†ï¼Œçœ‹çœ‹åŒ¹é…æ•°æ®åº“é‡Œé¢å“ªä¸ªurlã€‚
 	   $count=count($hostList);
 	   $linkObj=D('Link');
 	   $encrypHostList=array();
 	   $linkList=array();
 	   $urlInfo=parse_url($a['info']['url']);
 	   $query=$urlInfo['query'];
-	   $paramList=\Admin\Model\BaiDuSearchModel::getParams($query);//°Ñ¹Ø¼ü×ÖidºÍÅÅÃû´«µİ¸ø×Óº¯Êı¡£
+	   $paramList=\Admin\Model\BaiDuSearchModel::getParams($query);//æŠŠå…³é”®å­—idå’Œæ’åä¼ é€’ç»™å­å‡½æ•°ã€‚
 	   $keywordId=$paramList['keyword_id'];
 	   for($i=0;$i<$count;$i++){
-			$linkList=$linkObj->getLinkLimit($hostList[$i]['origin']);
+			$linkList=$linkObj->getLinkLimit($hostList[$i]['host']);
 			if(!empty($linkList)){
 				$url=$hostList[$i]['encryp'];
 				$url=\Admin\Model\BaiDuSearchModel::addParam($url,'keyword_id',$keywordId);
@@ -70,20 +70,27 @@
 			}
 			
 	   }
+       
+	   if(!empty($encrypHostList)){
+		  //var_dump($encrypHostList);
+		   $this->getDecriptLink($encrypHostList);
+	   }
 
-	  $this->getDecriptLink($encrypHostList);
 	   
 	   
    
-    }
+    },
+	'error'=>function ($contentInfo){
+			 \Admin\Model\LogModel::log('è§£æé“¾æ¥å¤±è´¥',$contentInfo);
+	}
  ]);
 
 $cm->start();
     }
 	
 	/**
-	 *½âÃÜ°Ù¶Èlink?url µÄµØÖ·,×îºóµ÷ÓÃ»Øµ÷º¯Êı ´æ´¢Êı¾İµ½Êı¾İ¿â
-	 *@param $encrypHostList Òª½âÃÜµÄ urlµØÖ·
+	 *è§£å¯†ç™¾åº¦link?url çš„åœ°å€,æœ€åè°ƒç”¨å›è°ƒå‡½æ•° å­˜å‚¨æ•°æ®åˆ°æ•°æ®åº“
+	 *@param $encrypHostList è¦è§£å¯†çš„ urlåœ°å€
 	 */
 	 
 	protected function getDecriptLink($encrypHostList){
@@ -97,15 +104,19 @@ $cm->start();
                     CURLOPT_AUTOREFERER => true,
                 ),
         'maxThread' => 100,
-        'maxTry' => 3 
+        'maxTry' => 1
     ],
     'start' => false,
     'success' => function($result,$info){
+		//var_dump($result);
 		$urlInfo=parse_url($result['info']['url']);
 	    $query=$urlInfo['query'];
 		$paramList=\Admin\Model\BaiDuSearchModel::getParams($query);
 		$this->saveMatchData($result['content'],$paramList['keyword_id'],$paramList['rank']);
-    }
+    },
+	'error'=>function ($contentInfo,$curlInfo){
+	 \Admin\Model\LogModel::log('è§£æé“¾æ¥å¤±è´¥',$contentInfo);
+	}
 ]);
 		
 	}
@@ -114,10 +125,10 @@ $cm->start();
 
 	
 	/**
-	 *»ñÈ¡htmlÄÚÈİ£¬»ñÈ¡½âÃÜºóµÄurl£¬µØÖ·¡£È»ºó¶Ô±ÈÁ´½ÓÊı¾İ¿â¡£Èç¹ûÊÇÎÒÃÇÒª²¶»ñµÄurl£¬¾Í¼ÇÂ¼µ½match±íÀï
-	 *@param ÖØ¶¨ÏòµÄhtmlÄÚÈİ
-	 *@param ¹Ø¼ü×ÖÊı¾İ¿âÀïÃæ¹Ø¼ü×Ö¶ÔÓ¦µÄid
-	 *@param Á´½ÓÅÅÃû
+	 *è·å–htmlå†…å®¹ï¼Œè·å–è§£å¯†åçš„urlï¼Œåœ°å€ã€‚ç„¶åå¯¹æ¯”é“¾æ¥æ•°æ®åº“ã€‚å¦‚æœæ˜¯æˆ‘ä»¬è¦æ•è·çš„urlï¼Œå°±è®°å½•åˆ°matchè¡¨é‡Œ
+	 *@param é‡å®šå‘çš„htmlå†…å®¹
+	 *@param å…³é”®å­—æ•°æ®åº“é‡Œé¢å…³é”®å­—å¯¹åº”çš„id
+	 *@param é“¾æ¥æ’å
 	 */
 	
 	protected  function saveMatchData($htmlContent,$keywordId,$rank){
@@ -132,23 +143,17 @@ $cm->start();
 			$data['rank']=$rank;	
 			$matchObj=D('Match');
 			$matchObj->addRecord($data);
-			echo "ÕÒµ½Æ¥ÅäÊı¾İ<br>";
+			echo "æ‰¾åˆ°åŒ¹é…æ•°æ®<br>";
 			
 		}
 	}
 	/**
-	 *·ÖÒ³²éÑ¯Ò»´Î²éÑ¯30¸ö¹Ø¼ü×Ö¡£
+	 *åˆ†é¡µæŸ¥è¯¢ä¸€æ¬¡æŸ¥è¯¢30ä¸ªå…³é”®å­—ã€‚
 	*/
 	public function start($limit=30){
-		// $this->isAuthorize();
-		
 		ignore_user_abort(true);
 		set_time_limit(0);
 		$keywordObj=D('Keyword');
-		if($status===false){
-			echo "³ÌĞò´íÎó";
-			exit();
-		}
 		$count=$keywordObj->getRecordAmount();
 		
 		$page=$count%$limit?intval(($count/$limit))+1:intval($count/$limit);
@@ -156,20 +161,17 @@ $cm->start();
 		$keywordList=$keywordObj->getKeywordLimit($i,$limit);
 		$list=array();
 		foreach($keywordList as $keyword){
-			$list[]='http://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
+			$list[]='https://www.baidu.com/s?wd='.urlencode($keyword['keyword']).'&keyword_id='.$keyword['id'];
 		}
 		$this->getHtmlContent($list);
-		echo "µÚ $i Ò³É¨ÃèÍê³É<br>";
-		
+		echo "ç¬¬ $i é¡µæ‰«æå®Œæˆ<br>";
 		}
-
 	}
 	
-	
-	
-	
-	
+
+
 
 	
+
 	}
 	

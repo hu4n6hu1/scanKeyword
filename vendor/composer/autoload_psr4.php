@@ -9,4 +9,6 @@ return array(
     'QL\\Ext\\Lib\\' => array($vendorDir . '/jaeger/curlmulti'),
     'QL\\Ext\\' => array($vendorDir . '/jaeger/querylist-ext-aquery', $vendorDir . '/jaeger/querylist-ext-multi'),
     'QL\\' => array($vendorDir . '/jaeger/querylist'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
 );
